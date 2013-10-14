@@ -2,16 +2,18 @@ package de.uniulm.bagception.rfidinventory;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import de.uniulm.bagception.R;
-import de.uniulm.bagception.rfidapi.RFIDMiniMe;
+
 
 public class RFIDInventory extends USBRFIDActivity{
+	public static final String USB_CONNECTION_BROADCAST_RFIDSCAN = "de.uniulm.bagception.service.broadcast.usbconnection.rfidscan";
 
 	
 	private TextView tv_usbstate;
@@ -20,7 +22,11 @@ public class RFIDInventory extends USBRFIDActivity{
 	private final ArrayList<String> ids = new ArrayList<String>();
 
 	public void inventoryClicked(View v) {
-		RFIDMiniMe.triggerInventory(this);
+		Log.d("RFID","br for rfid scan send");
+		Intent i = new Intent();
+		i.setAction(USB_CONNECTION_BROADCAST_RFIDSCAN);
+		sendBroadcast(i);
+		
 	}
 
 	@Override
@@ -38,8 +44,7 @@ public class RFIDInventory extends USBRFIDActivity{
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		
 		return true;
 	}
 

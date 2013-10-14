@@ -2,26 +2,14 @@ package de.uniulm.bagception.rfidinventory;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import de.philipphock.android.lib.services.ServiceUtil;
-import de.philipphock.android.lib.services.observation.ServiceObservationActor;
-import de.philipphock.android.lib.services.observation.ServiceObservationReactor;
 import de.uniulm.bagception.R;
 import de.uniulm.bagception.rfidapi.RFIDMiniMe;
-
-import de.uniulm.bagception.rfidinventory.service.USBConnectionActor;
-import de.uniulm.bagception.rfidinventory.service.USBConnectionReactor;
 
 public class RFIDInventory extends USBRFIDActivity{
 
@@ -70,7 +58,7 @@ public class RFIDInventory extends USBRFIDActivity{
 	@Override
 	public void onServiceStopped(String serviceName) {
 		tv_usbstate.setText("service disconnected");
-		tv_usbstate.setTextColor(android.graphics.Color.YELLOW);
+		tv_usbstate.setTextColor(android.graphics.Color.RED);
 		
 		
 	}

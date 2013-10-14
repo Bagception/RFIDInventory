@@ -64,6 +64,14 @@ public abstract class USBRFIDActivity extends Activity implements ServiceObserva
 		
 	}
 
+	
+	@Override
+	protected void onPause() {
+		usbConnectionActor.unregister(this);
+		observationActor.unregister(this);
+		
+		super.onPause();
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -73,7 +81,6 @@ public abstract class USBRFIDActivity extends Activity implements ServiceObserva
 
 
 
-	
 
 	BroadcastReceiver rfidTagReceiver = new BroadcastReceiver() {
 

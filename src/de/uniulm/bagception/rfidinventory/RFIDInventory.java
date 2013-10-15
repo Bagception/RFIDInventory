@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import de.uniulm.bagception.broadcastconstants.BagceptionBroadcastContants;
 
 
 public class RFIDInventory extends USBRFIDActivity{
-	public static final String USB_CONNECTION_BROADCAST_RFIDSCAN = "de.uniulm.bagception.service.broadcast.usbconnection.rfidscan";
+	
 
 	
 	private TextView tv_usbstate;
@@ -22,9 +22,8 @@ public class RFIDInventory extends USBRFIDActivity{
 	private final ArrayList<String> ids = new ArrayList<String>();
 
 	public void inventoryClicked(View v) {
-		Log.d("RFID","br for rfid scan send");
 		Intent i = new Intent();
-		i.setAction(USB_CONNECTION_BROADCAST_RFIDSCAN);
+		i.setAction(BagceptionBroadcastContants.USB_CONNECTION_BROADCAST_RFIDSCAN);
 		sendBroadcast(i);
 		
 	}
@@ -65,6 +64,10 @@ public class RFIDInventory extends USBRFIDActivity{
 		tv_usbstate.setText("service disconnected");
 		tv_usbstate.setTextColor(android.graphics.Color.RED);
 		
+		Intent startServiceIntent = new Intent("de.uniulm.bagception.service.USBConnectionServiceRemote");
+		startService(startServiceIntent);	
+		
+		
 		
 	}
 
@@ -96,8 +99,14 @@ public class RFIDInventory extends USBRFIDActivity{
 	// RFID 
 	@Override
 	public void onTagRecv(String tagname) {
-		//adapter.add(tagname);
-		//adapter.notifyDataSetChanged();		
+		adapter.add(tagname);
+		adapter.notifyDataSetChanged();		
+	}
+
+	@Override
+	public void onReaderNotConnected() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
